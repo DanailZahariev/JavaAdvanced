@@ -1,84 +1,63 @@
 package StacksAndQueuesExercise;
 
 import java.util.ArrayDeque;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Robotics {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String inputRobots = scanner.nextLine();
-        String[] robotsData = inputRobots.split(";");
-        LinkedHashMap<String, Integer> robots = getRobotsData(robotsData);
-        LinkedHashMap<String, Integer> robotsWorkingTime = getRobotsWorkingTime(robotsData);
-        String startTime = scanner.nextLine();
-        int startTimeInSeconds = startTimeInSeconds(startTime);
-        ArrayDeque<String> products = new ArrayDeque<>();
-        String product = scanner.nextLine();
-        while (!product.equals("End")) {
-            products.offer(product);
-            product = scanner.nextLine();
+        List<String> robots = Arrays.stream(scanner.nextLine().split(";")).collect(Collectors.toList());
+        String[] robotName = new String[robots.size()];
+        int[] processTime = new int[robots.size()];
+        for (int i = 0; i < robots.size(); i++) {
+            String[] tokes = robots.get(i).split("-");
+            String name = tokes[0];
+            robotName[i] = name;
+            int time = Integer.parseInt(tokes[1]);
+            processTime[i] = time;
         }
-        while (!products.isEmpty()) {
-            String currentProduct = products.poll();
+        String startTime = scanner.nextLine();
+        ArrayDeque<String> productsQueue = new ArrayDeque<>();
+        String inputProduct = scanner.nextLine();
+        while (!inputProduct.equals("End")) {
+            productsQueue.offer(inputProduct);
+            inputProduct = scanner.nextLine();
+        }
+        String[] timeData = startTime.split(":");
+        int hours = Integer.parseInt(timeData[0]);
+        int minutes = Integer.parseInt(timeData[1]);
+        int seconds = Integer.parseInt(timeData[2]);
+        int startTimeInSeconds = hours * 3600 + minutes * 60 + seconds;
+        int[] robotsWork = new int[robots.size()];
+        while (!productsQueue.isEmpty()) {
             startTimeInSeconds++;
-            decreaseWorkingTime(robotsWorkingTime);
-            boolean taken = false;
-            for (Map.Entry<String, Integer> robot : robotsWorkingTime.entrySet()) {
-                if (robot.getValue() == 0) {
-                    System.out.println(robot.getKey() + " - " + currentProduct + " [" + getStartTime(startTimeInSeconds) + "]");
-                    robotsWorkingTime.put(robot.getKey(), robots.get(robot.getKey()));
-                    taken = true;
-                    break;
+            String products = productsQueue.poll();
+            int index = -1;
+            for (int i = 0; i < robotsWork.length; i++) {
+                if (robotsWork[i] > 0) {
+                    robotsWork[i]--;
+                }
+                if (robotsWork[i] == 0 && index == -1) {
+                    index = i;
                 }
             }
-            if (!taken) {
-                products.offer(currentProduct);
+            if (index != -1) {
+                robotsWork[index] = processTime[index];
+                System.out.println(printRobotData(robotName[index], products, startTimeInSeconds));
+            } else {
+                productsQueue.offer(products);
             }
         }
     }
 
-
-    private static void decreaseWorkingTime(LinkedHashMap<String, Integer> robotsWorkingTime) {
-        for (Map.Entry<String, Integer> robot : robotsWorkingTime.entrySet()) {
-            if (robot.getValue() > 0) {
-                robotsWorkingTime.put(robot.getKey(), robot.getValue() - 1);
-            }
-        }
-    }
-
-    private static LinkedHashMap<String, Integer> getRobotsWorkingTime(String[] robotsData) {
-        LinkedHashMap<String, Integer> robots = new LinkedHashMap<>();
-        for (String robotData : robotsData) {
-            String name = robotData.split("-")[0];
-            robots.put(name, 0);
-        }
-        return robots;
-    }
-
-    private static int startTimeInSeconds(String startTime) {
-        int hour = Integer.parseInt(startTime.split(":")[0]);
-        int minutes = Integer.parseInt(startTime.split(":")[1]);
-        int seconds = Integer.parseInt(startTime.split(":")[2]);
-        int startTimeSeconds = hour * 3600 + minutes * 60 + seconds;
-        return startTimeSeconds;
-    }
-
-    private static String getStartTime(int startTimeInSeconds) {
-        int hours = (startTimeInSeconds / 3600) % 24;
-        int minutes = startTimeInSeconds % 3600 / 60;
-        int seconds = startTimeInSeconds % 60;
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-    }
-
-    private static LinkedHashMap<String, Integer> getRobotsData(String[] robotsData) {
-        LinkedHashMap<String, Integer> robots = new LinkedHashMap<>();
-        for (String robotData : robotsData) {
-            String name = robotData.split("-")[0];
-            int time = Integer.parseInt(robotData.split("-")[1]);
-            robots.put(name, time);
-        }
-        return robots;
+    public static String printRobotData(String name, String products, int beginTime) {
+        long hours = (beginTime / (60 * 60)) % 24;
+        long minutes = (beginTime / 60) % 60;
+        long seconds = beginTime % 60;
+        String time = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        return String.format("%s - %s [%s]", name, products, time);
     }
 }
