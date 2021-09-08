@@ -38,4 +38,16 @@ public class PositionsOf {
         return Arrays.stream(elements.split("\\s+"))
                 .mapToInt(Integer::parseInt).toArray();
     }
+     /*  public static List<int[]> findNumberOccurrences(int[][] matrix, int number) {
+        List<int[]> output = new ArrayList<>();
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[row].length; col++) {
+                int current = matrix[row][col];
+                if (current == number) {
+                    output.add(new int[]{row, col});
+                }
+            }
+        }
+        return output;
+    }*/
 }
