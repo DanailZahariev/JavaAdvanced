@@ -15,8 +15,6 @@ public class MatrixShuffling {
         while (!command.equals("END")) {
             if (!validCommand(command, rows, cols)) {
                 System.out.println("Invalid input!");
-                command = scanner.nextLine();
-                continue;
             } else {
                 String[] tokes = command.split(" ");
                 int firstRow = Integer.parseInt(tokes[1]);
