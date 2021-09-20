@@ -2,7 +2,7 @@ package MultidimensionalArraysExercise;
 
 import java.util.Scanner;
 
-public class Crossfire {
+public class TheHeiganDance {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
