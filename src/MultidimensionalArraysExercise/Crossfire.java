@@ -25,7 +25,11 @@ public class Crossfire {
                     matrix[row][i] = 0;
                 }
             }
-
+            for (int i = col - radius; i <= col + radius; i++) {
+                if (i >= 0 && i < cols) {
+                    matrix[row][i] = 0;
+                }
+            }
             command = scanner.nextLine();
         }
     }
@@ -38,4 +42,5 @@ public class Crossfire {
             }
         }
     }
+
 }
