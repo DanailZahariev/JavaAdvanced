@@ -11,7 +11,6 @@ public class UniqueUsernames {
         int n = Integer.parseInt(scanner.nextLine());
         for (int i = 0; i < n; i++) {
             String username = scanner.nextLine();
-            if (!usernames.contains(username)) ;
             usernames.add(username);
         }
         System.out.println(String.join(System.lineSeparator(), usernames));
