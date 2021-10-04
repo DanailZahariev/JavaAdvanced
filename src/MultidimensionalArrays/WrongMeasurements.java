@@ -64,7 +64,6 @@ public class WrongMeasurements {
             System.out.println();
         }
     }
-    // TODO
     public static boolean isInBounds(int row, int col, int[][] matrix) {
         return row >= 0 && row <= matrix.length && col >= 0 && col < matrix[row].length;
     }
