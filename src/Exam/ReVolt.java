@@ -21,46 +21,64 @@ public class ReVolt {
         while (commandsCountLines-- > 0 && !playerWon) {
             String command = scanner.nextLine();
             if (command.equals("up")) {
-                playerWon = movePlayer(playerPosition, matrix);
+                playerWon = movePlayer(playerPosition, matrix, -1, 0);
             } else if (command.equals("down")) {
-
+                playerWon = movePlayer(playerPosition, matrix, +1, 0);
             } else if (command.equals("left")) {
-
+                playerWon = movePlayer(playerPosition, matrix, 0, -1);
             } else if (command.equals("right")) {
-
+                playerWon = movePlayer(playerPosition, matrix, 0, +1);
             }
         }
         if (playerWon) {
             System.out.println("Player won!");
+            printMatrix(matrix);
         } else {
             System.out.println("Player lost!");
+            printMatrix(matrix);
         }
 
     }
 
-    private static boolean movePlayer(int[] playerPosition, char[][] matrix) {
+    private static boolean movePlayer(int[] playerPosition, char[][] matrix, int rowModification, int colModification) {
         int row = playerPosition[0];
         int col = playerPosition[1];
-        int newRow = row - 1;
-        int newCol = col;
+        int newRow = ensureIndexisInBounds(row + rowModification, matrix.length);
+        int newCol = ensureIndexisInBounds(col + colModification, matrix.length);
         boolean hasWon = false;
         if (matrix[newRow][newCol] == 'F') {
             hasWon = true;
         } else if (matrix[newRow][newCol] == 'B') {
-            newRow = row - 1;
+            newRow = ensureIndexisInBounds(newRow + rowModification, matrix.length);
+            newCol = ensureIndexisInBounds(newCol + colModification, matrix.length);
+            if (matrix[newRow][newCol] == 'F') {
+                hasWon = true;
+            }
+        } else if (matrix[newRow][newCol] == 'T') {
+            newRow = row;
             newCol = col;
+
         }
-        matrix[newRow][newCol] = 'f';
         matrix[row][col] = '-';
+        matrix[newRow][newCol] = 'f';
         playerPosition[0] = newRow;
         playerPosition[1] = newCol;
         return hasWon;
     }
 
+    private static int ensureIndexisInBounds(int index, int bounds) {
+        if (index < 0) {
+            index = bounds - 1;
+        } else if (index >= bounds) {
+            index = 0;
+        }
+        return index;
+    }
+
     private static void printMatrix(char[][] matrix) {
         for (char[] arr : matrix) {
             for (char symbol : arr) {
-                System.out.println(symbol);
+                System.out.print(symbol);
             }
             System.out.println();
         }
