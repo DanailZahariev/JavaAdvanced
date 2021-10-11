@@ -1,4 +1,4 @@
-package GenericsExercise.CustomList;
+package GenericsExercise.CustomListSorter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +9,14 @@ public class CustomList<T extends Comparable<T>> {
 
     public CustomList() {
         elements = new ArrayList<>();
+    }
+
+    public int size() {
+        return elements.size();
+    }
+
+    public T getIndex(int element) {
+        return elements.get(element);
     }
 
     public void add(T element) {
@@ -28,14 +36,13 @@ public class CustomList<T extends Comparable<T>> {
     }
 
     public int countGreaterThan(T element) {
-        return (int) elements.stream().filter(value -> value.compareTo(element) > 0).count();
-//        int count = 0;
-//        for (T value : this.elements) {
-//            if (value.compareTo(element) > 0) {
-//                count++;
-//            }
-//        }
-//        return count;
+        int count = 0;
+        for (T value : this.elements) {
+            if (value.compareTo(element) > 0) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public T getMax() {
