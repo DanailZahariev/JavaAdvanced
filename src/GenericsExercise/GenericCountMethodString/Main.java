@@ -1,4 +1,4 @@
-package GenericsExercise.GenericSwapMethodStrings;
+package GenericsExercise.GenericCountMethodString;
 
 import java.util.Scanner;
 
@@ -11,11 +11,8 @@ public class Main {
             String value = scanner.nextLine();
             box.add(value);
         }
-        String[] tokens = scanner.nextLine().split(" ");
-        int firstIndex  = Integer.parseInt(tokens[0]);
-        int secondIndex  = Integer.parseInt(tokens[1]);
-        box.swap(firstIndex,secondIndex);
-        System.out.println(box);
-
+        String stringToCompare = scanner.nextLine();
+        int greaterElement = box.countOfGreaterItems(stringToCompare);
+        System.out.println(greaterElement);
     }
 }
