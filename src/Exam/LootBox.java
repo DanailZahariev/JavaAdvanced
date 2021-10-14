@@ -28,14 +28,14 @@ public class LootBox {
 
         }
         if (firstBox.isEmpty()) {
-            System.out.println("First lootbox is empty");
+            System.out.println("First magic box is empty.");
         } else {
-            System.out.println("Second lootbox is empty");
+            System.out.println("Second magic box is empty.");
         }
         if (itemValue >= 100) {
-            System.out.println("Your loot was epic! Value: " + itemValue);
+            System.out.println("Wow, your prey was epic! Value: " + itemValue);
         } else {
-            System.out.println("Your loot was poor... Value: " + itemValue);
+            System.out.println("Poor prey... Value: " + itemValue);
         }
     }
 }

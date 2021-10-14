@@ -10,13 +10,9 @@ public class Book implements Comparable<Book> {
     private List<String> authors;
 
     public Book(String title, int year, String... authors) {
-        this.setTitle(title);
-        this.setYear(year);
-        this.setAuthors(authors);
-    }
-
-    private void setAuthors(String... authors) {
-        this.authors = Arrays.stream(authors).collect(Collectors.toList());
+        setTitle(title);
+        setYear(year);
+        setAuthors(authors);
     }
 
     public String getTitle() {
@@ -29,6 +25,10 @@ public class Book implements Comparable<Book> {
 
     public List<String> getAuthors() {
         return authors;
+    }
+
+    private void setAuthors(String... authors) {
+        this.authors = Arrays.stream(authors).collect(Collectors.toList());
     }
 
     private void setTitle(String title) {
