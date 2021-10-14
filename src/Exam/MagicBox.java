@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class LootBox {
+public class MagicBox {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayDeque<Integer> firstBox = Arrays.stream(scanner.nextLine().split("\\s+"))
