@@ -30,16 +30,16 @@ public class Bombs {
         for (String command : commands) {
             switch (command) {
                 case "up":
-                    foundEnd = moveSapper(matrix, -1, 0);
+                    foundEnd = moveSapper(matrix, startRow - 1, startCol);
                     break;
                 case "down":
-                    foundEnd = moveSapper(matrix, +1, 0);
+                    foundEnd = moveSapper(matrix, startRow + 1, startCol);
                     break;
                 case "left":
-                    foundEnd = moveSapper(matrix, 0, -1);
+                    foundEnd = moveSapper(matrix, startRow, startCol - 1);
                     break;
                 case "right":
-                    foundEnd = moveSapper(matrix, 0, +1);
+                    foundEnd = moveSapper(matrix, startRow, startCol + 1);
                     break;
             }
             if (foundEnd) {
@@ -56,8 +56,8 @@ public class Bombs {
     }
 
     public static boolean moveSapper(char[][] matrix, int newRow, int newCol) {
-        startRow = startRow + newRow;
-        startCol = startCol + newCol;
+        startRow = newRow;
+        startCol = newCol;
         isInBounds(matrix);
         char current = matrix[startRow][startCol];
         matrix[startRow][startCol] = '+';
