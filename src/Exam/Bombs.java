@@ -1,6 +1,5 @@
 package Exam;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Bombs {
