@@ -1,3 +1,5 @@
+package FinalExam;
+
 import java.util.Scanner;
 
 public class MouseAndCheese {
